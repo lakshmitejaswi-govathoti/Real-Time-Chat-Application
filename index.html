@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Group Chat App</title>
+	<script src=""></script>
+	<script src=""></script>
+	<script src="script.js"></script>
+</head>
+<body>
+	<h1>Group Chat App</h1>
+	<form id="login-form">
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username"><br><br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password"><br><br>
+		<button id="login-btn">Login</button>
+	</form>
+	<div id="chat-container">
+		<div id="chat-log"></div>
+		<form id="message-form">
+			<input type="text" id="message" name="message"><br><br>
+			<button id="send-btn">Send</button>
+		</form>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$('#login-btn').click(function(){
+				var username = $('#username').val();
+				var password = $('#password').val();
+				socket.emit('login', { username, password });
+			});
+			$('#send-btn').click(function(){
+				var message = $('#message').val();
+				socket.emit('message', { text: message, groupId: 'abc' });
+				$('#message').val('');
+			});
+		});
+	</script>
+</body>
+</html>
